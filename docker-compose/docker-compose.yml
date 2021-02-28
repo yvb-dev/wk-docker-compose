@@ -1,0 +1,47 @@
+version: '3.1'
+
+services:
+
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: storage
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+    ports:
+      - 3307:3306
+
+  wk-backend:
+    image: yyvvbb/dbextractor
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - 8080:8080
+
+  couchbase:
+    image: couchbase/server-sandbox:6.5.0
+    depends_on:
+      - wk-backend
+    ports:
+      - 8091-8094:8091-8094
+      - 11210:11210
+    volumes:
+      - ./couchbase/data:/opt/couchbase/var/lib/couchbase/data
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    depends_on:
+      - couchbase
+    ports:
+      - 8888:15672
+
+  balance-cache:
+    image: yyvvbb/balance-cache
+    depends_on:
+      - rabbitmq
+    ports:
+      - 80:8080
