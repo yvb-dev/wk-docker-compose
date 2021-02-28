@@ -23,27 +23,32 @@
 Для оценки и управления службами контейнеров осуществлен проброс портов на хостовую машину.
 
 #services:wk-backend
+
 REST API для получения данных из services:mysql в формате xml и json.
  
 `http://localhost:8080/users/xml`
 `http://localhost:8080/users/json`
 
 #services:balance-cache
+
 REST API для  listener-rabbitmq, получает состояние кеша всех пользователей, баланс которых составляет < K.
 
 `http://localhost/users/limit`
 
 #services:mysql
+
 User: root Password: password
 
 `http://localhost:3307/`
 
 #services:rabbitmq
+
 Админка для RabbitMQ / User: guest Password: guest
 
 `http://localhost:8888/`
 
 #services:couchbase
+
 Админка для CouchbaseServer / User: Administrator Password: password
  - bucket: default
  - index: CREATE PRIMARY INDEX `default_primary_index` ON `default` USING View
