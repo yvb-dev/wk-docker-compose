@@ -5,7 +5,6 @@ services:
   mysql:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
-    restart: always
     environment:
       MYSQL_DATABASE: storage
       MYSQL_ROOT_PASSWORD: password
@@ -16,7 +15,6 @@ services:
 
   wk-backend:
     image: yyvvbb/dbextractor
-    restart: always
     depends_on:
       - mysql
     ports:
@@ -29,15 +27,15 @@ services:
     ports:
       - 8091-8094:8091-8094
       - 11210:11210
-    volumes:
-      - ./couchbase/data:/opt/couchbase/var/lib/couchbase/data
+#    volumes:
+#      - ./couchbase/data:/opt/couchbase/var/lib/couchbase/data
 
   rabbitmq:
     image: rabbitmq:3-management
-    depends_on:
-      - couchbase
+#    depends_on:
+#      - couchbase
     ports:
-      - 8888:15672
+      - 15672:15672
 
   balance-cache:
     image: yyvvbb/balance-cache

@@ -13,11 +13,11 @@ CREATE TABLE users
 DELETE FROM users;
 
 INSERT INTO users (FIRST_NAME, LAST_NAME, BALANCE, TARIFF) VALUES
-('Иван', 'Иванов', 1000, 'Gold'),
-('Петр', 'Петров', 5, 'Silver'),
+('Jack', 'Nicholson', 5, 'Silver'),
 ('Samuel L.', 'Jackson', 100000, 'Platinum'),
 ('Denzel', 'Washington', 10001, 'Gold'),
 ('John', 'Travolta', 0, 'Gold'),
-('Сид', 'Сидоров', 456, 'Platinum'),
-('Оби-Ван', 'Кеноби', 9999, 'Silver'),
-('Джордж', 'Лукас', 789, 'Gold');
+('Natalie', 'Portman', 1000, 'Gold'),
+('Tom', 'Hanks', 456, 'Platinum'),
+('Al', 'Pacino', 9999, 'Silver'),
+('Dustin', 'Hoffman', 789, 'Gold');
