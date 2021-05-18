@@ -55,17 +55,3 @@ User: root Password: password
 
 `http://localhost:8091/`
 
-#Особенности приложения при тестировании в docker-среде
-
-При тестировании приложения в docker-среде, после перезапуска контейнеров происходит долгая инициализация bucket couchbase.
-На хостовой машине, локально таких проблем не наблюдалось. Установить точную причину такого поведения не удалось.
-Могу только предположить, что это как то связано с тем, что  bucket монтируется через volumes.
-Нужно дождаться пока bucket перейдет из состояние pending и желательно перезапустить контейнер services:balance-cache.
-Если не монтировать volumes то не сохраняется индексы и bucket, но docker может и кэшировать эти састояния.
-В итоговом проекте я закоментировал volume и services:couchbase будет запускаться пустым. Поэтому нужно при первом запуске или 
-после рестарта (если не корректно будет работать services:balance-cache):
- - проверить создан ли bucket: default
- - создать индекс CREATE PRIMARY INDEX `default_primary_index` ON `default` USING View
- - перезапустить services:balance-cache
-
-`docker-compose restart balance-cache`
